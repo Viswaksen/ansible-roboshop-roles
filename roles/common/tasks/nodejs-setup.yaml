@@ -8,3 +8,8 @@
   ansible.builtin.dnf:
     name: nodejs 
     state: present
+
+- name: Install npm packages
+  community.general.npm:
+    path: /app
+    

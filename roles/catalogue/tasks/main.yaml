@@ -1,22 +1,16 @@
 
 
 
-- name: nodejs setup
-  include_role:
-    name: common
-    tasks_from: nodejs-setup
-  
-
-
 - name: app setup
   include_role:
     name: common
     tasks_from: app-setup
 
-- name: Install npm packages
-  community.general.npm:
-    path: /app
-    
+- name: nodejs setup
+  include_role:
+    name: common
+    tasks_from: nodejs-setup
+  
 
 - name: Copy configuration file
   ansible.builtin.copy:
