@@ -1,0 +1,53 @@
+
+
+
+- name: nodejs setup
+  include_role:
+    name: common
+    tasks_from: nodejs-setup
+  
+
+- name: app setup
+  include_role:
+    name: common
+    tasks_from: app-setup
+  
+
+
+- name: Install npm packages
+  community.general.npm:
+    path: /app
+    
+
+- name: Systemd setup
+  include_role:
+    name: common
+    tasks_from: sytemd-setup
+
+- name: Copy configuration file
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+  
+- name: Installing the Mongodb client
+  
+  ansible.builtin.dnf:
+    name: mongodb-mongosh
+    state: present
+
+- name: Check products loaded or not
+  ansible.builtin.shell: mongosh --host mongodb.viswak.shop</app/db/master-data.js
+  register: catalogue_output
+
+
+- name: Print catalogue output
+  ansible.builtin.debug:
+    msg: "{{ catalogue_output }}"
+
+- name: load products
+  ansible.builtin.shell: mongosh --host mongodb.viswak.shop</app/db/master-data.js
+  when: catalogue_output.stdout | int < 0
+
+
+
+

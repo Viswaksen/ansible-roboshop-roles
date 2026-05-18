@@ -1,0 +1,5 @@
+- name: Configure Mongodb component
+  become: yes
+  hosts: "{{ component }}"
+  roles:
+  - "{{ component }}"
