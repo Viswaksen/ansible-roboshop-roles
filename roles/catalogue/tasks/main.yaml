@@ -7,30 +7,24 @@
     tasks_from: nodejs-setup
   
 
+
 - name: app setup
   include_role:
     name: common
     tasks_from: app-setup
-  
-
 
 - name: Install npm packages
   community.general.npm:
     path: /app
     
 
-- name: Systemd setup
-  include_role:
-    name: common
-    tasks_from: sytemd-setup
-
 - name: Copy configuration file
   ansible.builtin.copy:
     src: mongo.repo
     dest: /etc/yum.repos.d/mongo.repo
+
   
-- name: Installing the Mongodb client
-  
+- name: Installing the Mongodb client 
   ansible.builtin.dnf:
     name: mongodb-mongosh
     state: present
@@ -48,6 +42,11 @@
   ansible.builtin.shell: mongosh --host mongodb.viswak.shop</app/db/master-data.js
   when: catalogue_output.stdout | int < 0
 
+
+- name: Systemd setup
+  include_role:
+    name: common
+    tasks_from: systemd-setup
 
 
 
